@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+ <html   lang="en">
+    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Black House Media</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="resourses/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index.css">
+</head>
+    <body class="login-page">
+        <!-------------- Header ----------------------->
+        <header>
+              <!-- Preloader -->
+<div id="preloader">
+  <div class="dots-container">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+ </div>
+ <div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="brand-zone">
+            <h1>BLACK HOUSE <span>MEDIA</span></h1>
+            <div class="toggle-bar">
+                <button id="loginTab class="active" onclick="switchTab('Login')">LOGIN</button>
+                <button id="signupTab" onclick="switchTab('signup')">SIGNUP</button>
+            </div>
+        </div>
+        <form id="authForm">
+            <div class="input-field">
+                 <label>Email Address</label>
+                <input type="email" id="email" required placeholder="blackhousemedia@gmail.co.ug">
+            </div>
+            <div class="input-field">
+                <label>Password</label>
+                <input type="password" id="password" required placeholder="eg.#08Bh!*40">
+            </div>
+            <div id="signoutoptions" class="hidden">
+                <div class="input-field">
+                    <select id="userRole">
+                        <option value="entertainment.html">Entertainment</option>
+                        <option value="services.html">Services</option>
+                        <option value="software.html">Software</option>
+                        <option value="admin-partner">Partner</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div id="statusMessage"></div>
+        <button type="submit" id="proceedBtn" class="primary-btn">PROCEED</button>
+    </div>
+ </div>
+ <script src=""></script>
+    </body>
+</head>
+</html>
