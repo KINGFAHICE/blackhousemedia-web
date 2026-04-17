@@ -26,11 +26,6 @@ if (preloader) {
   });
  }
 
-/* =====================================================
-   DOM READY
-===================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-
   /* =====================================================
      SMOOTH SCROLL
   ===================================================== */
@@ -46,27 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* =====================================================
      MOBILE MENU TOGGLE
-  ===================================================== */
-  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-  const nav = document.querySelector('.nav-links');
-
-  if (mobileMenuBtn && nav) {
-    mobileMenuBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      nav.classList.toggle('active') 
-    }); 
-
-    // Close when clicking outside
-    document.addEventListener('click', e => {
-      if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-        nav.style.display = 'none';
-      }
-    });
-  }
-
+  =====================================================*/
+ 
   /* =====================================================
      NAVBAR HIDE / SHOW ON SCROLL
-  ===================================================== */
+  =====================================================*/
   const header = document.querySelector('.header');
   let lastScrollY = window.scrollY;
 
@@ -87,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       lastScrollY = currentScroll;
     });
   }
+
 
   /* =====================================================
      CONTACT FORM → WHATSAPP
@@ -164,4 +144,4 @@ document.addEventListener('DOMContentLoaded', () => {
       successMessage?.classList.remove('show');
     });
   }
-});
+

@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;  
+    font-family: Arial, Helvetica, sans-serif;
     }
     :root{
         --primary: #e50914;
@@ -14,6 +14,8 @@
         --card:#151515;
         --border: rgba(255, 255, 255, 0.1);
         --bg:#0a0a0a;
+        --bg2:#fff;
+        --bg-card:#fdfdfd;
     }
 
 html{
@@ -21,17 +23,10 @@ html{
 
 }
 @media (max-width: 480px){
-        html{
-            font-size: 50%;            
-        }
-        p, li,ul{
-                font-size: 1.8rem;
-            }
-    }
-   
 
+}        
 body{
-    background-color: var(--soft-white);
+    background-color: var(--bg2);
     color: var(--pure-black);
     font-size: 2.5rem;
     line-height: 1.5;
@@ -42,7 +37,7 @@ img, picture, video, canvas, svg{
 }
 ul,ol,li{
     list-style: none;
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 a{
     text-decoration: none;
@@ -56,7 +51,7 @@ p,h1,h2,h3,h4,h5,h6{
 }
 p{
     text-wrap: pretty;
-    font-size: 2.5rem;
+    font-size: 1.6rem;
 }
 h1,h2,h3,h4,h5,h6{
    text-wrap: balance;
@@ -66,9 +61,9 @@ h1,h2,h3,h4,h5,h6{
 }
 
 }
-/* =========================
-   PRELOADER – COLOR FLOW
-========================= */
+/* ===========================================================
+ =========================================  PRELOADER – COLOR FLOW====================
+============================================================================= */
 #preloader {
   position: fixed;
   inset: 0;
@@ -238,7 +233,7 @@ body.light-mode{
     letter-spacing: 0.1rem;
 }
 #CW{
-    font-size: 1rem;
+    font-size: 1.2rem;
     letter-spacing: 0.1rem;
     margin-top: 0.5rem;
     opacity: 0.9;
@@ -268,7 +263,7 @@ body.light-mode{
     .mobile-menu-btn {
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
+      gap: 0.6rem;
       background: none;
       border: none;
       cursor: pointer;
@@ -278,7 +273,7 @@ body.light-mode{
     .mobile-menu-btn span {
       display: block;
       width: 3rem;
-      height: 0.3rem;
+      height: 0.4rem;
       background: var(--primary);
       border-radius: 0.3rem;
       transition:0.3s;
@@ -287,9 +282,7 @@ body.light-mode{
         .nav-links ul{
             gap:1.5rem;
         }
-        .nav-links a {
-            font-size: 1.4rem;
-        }
+       
     }
     
     
@@ -304,11 +297,10 @@ body.light-mode{
             display: none;
         }
         .nav-links{
-            display: flex;
+            display: none;
             flex-direction: column;
             position:absolute;
             top: 0;
-            right: -10000%;
             width: auto;
             height: auto;
             background: #000000;
@@ -317,11 +309,10 @@ body.light-mode{
             margin-top: 8.2rem;
         }
          .nav-links.active{
+            display: flex;
             right: 0;
         }
-        .nav-links a{
-            font-size: 1.9rem;
-        }
+       
         #CW{
             display: none;
         }
@@ -351,7 +342,18 @@ body.light-mode{
   padding-top: 1rem;
   color: white;
 }
-
+.hero-soft{
+    position: relative;
+  background-image: url("resourses/software-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 65vh;
+  display: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 1rem;
+  color: white;
+}
 .hero::before {
   content: "";
   position: absolute;
@@ -375,11 +377,18 @@ body.light-mode{
         margin-top: 4rem;
     }
     .hero h1{
+         text-transform: uppercase;
+             font-size: 2.5rem;
+             font-weight: bold;
+             padding-top: 3rem;
     }
     .hero h2{
-      margin: 0;
-        padding: 0;
-    }
+            margin-top: 1rem;
+            font-size: 2.3rem;
+            font-style: italic;
+            line-height: 0.5rem;
+            font-weight: 500;
+         }   
     .credit{
         margin-top: 2rem;
         display: flex;
@@ -398,7 +407,7 @@ body.light-mode{
         min-width: 0;
     }
     .projects div:first-child, .customer div:first-child, .computer div:first-child {
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: bold;
     }
     .projects div:last-child, .customer div:last-child, .computer div:last-child {
@@ -418,21 +427,9 @@ body.light-mode{
         .hero{
             padding-left: 2rem;
          } 
-         .hero h1{
-             text-transform: uppercase;
-             font-size: 3.5rem;
-             font-weight: 800;
+        
          }
-         .hero h2{
-            margin-top: 1rem;
-            font-size: 2.3rem;
-            font-style: italic;
-            font-weight: 500;
-         }   
-         .hero p{
-            font-size: 1.5;
-         }
-    }
+         
     @media(max-width:600px){
         .hero{
         padding-left: 4rem;
@@ -445,18 +442,13 @@ body.light-mode{
             text-align: center;
         }
         .hero h1 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            line-height: 4.2rem;
+            
             margin-bottom: 0.5rem;
         }
         .hero h2 {
             padding-top: 0.2rem;
-            font-size: 1.9rem;
-            font-style: italic;
-            line-height: 0.1rem;
             font-weight: 500;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
     }
 
@@ -467,6 +459,7 @@ body.light-mode{
     margin: 1.5rem;
 }
 .card{
+    font-size: 1.9rem;
     padding: 20px;
     display:flex;
     border-radius: 20px;
@@ -513,12 +506,14 @@ body.light-mode{
     padding-top: 0rem;
     line-height: 5rem;
     padding-bottom: 4rem;
+    font-size: 3rem;
 }
 .h4-header{
     color: var(--primary);
     font-weight: bold;
     padding-top: 2rem;
     padding-bottom: 0;
+    font-size: 1.6rem;
 }
 .other-hh{
     text-align: center;
@@ -633,7 +628,7 @@ font-size: 2rem;
     margin-left: auto;
     margin-right: auto;
     padding: 1rem;
-    font-size: 1.6 rem;
+    font-size: 1.6rem;
     letter-spacing: o.9rem;
     border-radius: 0.6rem;
     background: var(--primary);
@@ -674,14 +669,15 @@ font-size: 2rem;
         color: var(--soft-white);
     }
 }
-/*=============================end of login page===================================
+/*=============================end of login page===
+=========================================================================
 ===================================software =========page start=[==================*/
 .software-grid{
     display: grid;
     grid-template-columns: repeat(outo-fit, minmax(400px1fr));
     gap: 20px;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--bg2);
 }
 .software-card{
     border: 1px solid #e0e0e0;
@@ -691,7 +687,7 @@ font-size: 2rem;
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.2s ease;
-    background: #fdfdfd;
+    background: var(--bg-card);
 }
 .software-card:hover{
     transform: translateY(-5px);
@@ -740,66 +736,87 @@ font-size: 2rem;
     padding: 5px;
 }
 .icon-btn :hover{
-    colo: #000;
+    color: #000;
 }
-/*======================footer=====================*/
-footer{
-    background-color: #0d0d0d;
-    color: var(--soft-white);
-    padding: 0;
-    margin: 0;
-    width: 100%;
+/*===========================================================
+=============================================================footer=========================================*/
+.main-footer{
+    background-color:#000000;
+    color: #ffffff;
+    padding: 40px 20px 20px 20px;
+    border-top: 1px solid #1a1a1a; 
 }
-hr{
-    height: 0.3rem;
-    background: var(--primary);
-    border: none;
-    width: 100%;
-}
-.logo{
+.footer-container{
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    gap:4rem;
 }
-.copy{
-    background: var(--pure-black);
-    text-align: center;
-    font-size: 2.5rem;
-    padding: 1rem;
-}
-.footer-cards{
-    display: grid;
-    gap: 1rem;
-    padding: 1rem;
-    /* phone*/
-    grid-template-columns: fr;
-}
-.cardf{
-    padding: 20px;
-    display:flex;
-    border-radius: 20px;
+.footer-card{
+    flex: 1 4fr;
     flex-direction: column;
-    align-items: flex-start;
+}
+.footer-logo img{
+       margin-bottom: 1rem;
+       width: 10rem;
+}
+.footer-card h4{
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 2rem;
+    line-height: 1.6;
+    margin-bottom: 0.2rem;
+}
+.footer-card ul{
+    padding: 0;
+    margin: 0;
+}
+.footer-card ul li{
+    margin-bottom: 1.2px;
+    color: #bbb;
+    font-size: 1.6rem;
+}
+.footer-card ul li a{
     color: var(--soft-white);
-    transition: 0.3s ease;
+     text-decoration: none;
 }
-  
-.cardf:hover:hover{
-    transform: translateY(-5px);
+.footer-card ul li a:hover{
+    color: #ffffff;
+    transition: all 0.3s ease;
+    font-size: 1.7rem;
+    font-weight: bolder;
 }
- 
-@media(max-width:1600px){
-     .footer-cards{
-                grid-template-rows: repeat(3, 1fr);
-            }
+.social-links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
-@media(max-width:1200px){
-    .footer-cards{
-        grid-template-columns:repeat(3, 1fr) ;
+.social-links a{
+    color: #fff;
+}
+.footer-bottom{
+    max-width: 1200px;
+    margin: 2rem auto 0 auto;
+    padding-top: 1px solid var(--primary);
+    text-align: center;
+    color: #555;
+}
+ hr {
+    margin-top: 4rem;
+    height: 0.15rem;
+    background-color: var(--primary);
+    border: none;
+    width:100%;
+}
+@media(max-width:769px){
+    .footer-container{
+        flex-direction: column;
+        text-align: left;
     }
-}
-@media(max-width:1024){
-    .footer-cards{
-    grid-template-columns:repeat(3, 1fr) ;
+    .footer-card{
+        width: 100%;
     }
 }
     
