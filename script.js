@@ -1,7 +1,7 @@
 //firebase module imports//
-import { initializeApp} from "httos://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword}
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import{getfirestore, doc, setDoc, getDoc} from "https://www.gstatic.com/firebase-auth.js";
 //firebase config
 const firebaseconfig = {apiKey:"AIzaSyD5sbIZ43Wtb1pkMFjhfc8KDCotE5W5vP8",
