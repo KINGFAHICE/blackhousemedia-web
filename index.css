@@ -532,26 +532,30 @@ font-size: 2rem;
        align-items: center;
     }
 }
-/*======================login page =========================*/
-.login-page{
-    body{
-         min-height: 100vh;
-    align-items: center;
+/*=====================
+--------------------------============================================================
+=====================================================login page =====================================================*/
+body.login-page{
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
-    }
+    align-items: center;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0,0,0,0.5)),
     url('resourses/login-image.jpg');
     background-size:cover;
     background-position: center;
-}
+    }
 .auth-card{
     display: flex;
+    justify-content: center;
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.6);
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     padding: 2rem;
     border-radius: 12px;
-    padding-bottom: 3rem;
     border:1px solid var(--border);
     width:100%;
     min-height: 450px;
@@ -560,12 +564,16 @@ font-size: 2rem;
     min-width: 345px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
+.brand-zone{
+    margin-top: 0rem;
+}
 .brand-zone h1 {
     font-size: 2.5rem;
     font-weight: 700;
     letter-spacing: 2px;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+    margin-top: 0rem;
 }
 .brand-zone h1, .input-field {
         color: var(--soft-white);
@@ -573,13 +581,26 @@ font-size: 2rem;
 .brand-zone span{
     color: var(--primary);
 }
+#auth-title, #auth-subtittle{
+    text-align: center;
+    color: var(--soft-white);
+    font-size: 1.6rem;
+}
+#auth-title{
+    font-size: 2.5rem;
+    font-weight: lighter;
+    letter-spacing: 0.5rem;
+}
+ #auth-subtittle{
+    padding-bottom: 1rem;
+ }
 .toggle-bar{
     display: flex;
     justify-content: center;
     padding: 1rem;
     background: var(--pure-black);
     border-radius: 0.8rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 .toggle-bar button{
     flex: 1;
@@ -598,24 +619,22 @@ font-size: 2rem;
     color: var(--soft-white);
     border-radius: 0.6rem;
 }
-.input-field input, .input-field select {
+.input-field input {
     width: 100%;
     padding: 12px;
     background: var(--soft-white);
     border-radius: 6px;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     outline: none;
 }
 .input-field{
     display: flex;
     flex-direction: column;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;  
 }
 .input-field label{
    display: block;
-    margin-bottom: 0.8rem;
-    left: 12px;
-    top: 12px;
+    margin-bottom: 0.5rem;   
     font-size: 1.6rem;
     transition: 0.2s;
     text-align: left;
@@ -636,30 +655,52 @@ font-size: 2rem;
     border: none;
     cursor: pointer;
 }
-.hidden {
-    display:none;
+.input-field label i{
+    margin-left: 1rem;
+    color: var(--accent);
+    font-size: 1.4rem;
+}
+#userRole{
+    width: 100%;
+    max-width: 100%;
+   padding: 0;
+   margin: o;
+   border-radius: 0.8rem;
+}
+.hidden{
+    display: none;
+}
+#statusMessage{
+    margin: 0.1rem 0;
+    font-size: 0.85rem;
+    text-align: center;
+    font-weight: bold;
+}
+#signoutoptions select{
+    display: flex;
+    width: 100%;
+    padding: 1.2rem;
 }
 @media (max-width: 480px ){
     .toggle-bar{
         margin-bottom: 6rem;
     }
-    .primary-btn{
-        padding: 1.8rem;
-        font-size: 2rem;
-        border-radius: 1rem;
-    }
-    .input-field{
-        margin-bottom: 6rem;
-    }
     .auth-card{
-        height: 80vh;
         background-color: rgba(0, 0, 0, 0.6);
+        background-size: cover;
+        background-position: center;
+        height: 95vh;
     }
     .brand-zone h1, .input-field {
         color: var(--soft-white);
     }
 }
 @media ( min-width: 481px)and (max-width:1024px){
+    body .loggin{
+        margin: 0;
+        padding: 0;
+
+    }
     .auth-card{
         height: 80vh;
         width: 90vh;

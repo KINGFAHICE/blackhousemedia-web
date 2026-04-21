@@ -25,36 +25,47 @@
     <div class="auth-card">
         <div class="brand-zone">
             <h1>BLACK HOUSE <span>MEDIA</span></h1>
-            <div class="toggle-bar">
-                <button id="loginTab class="active" onclick="switchTab('Login')">LOGIN</button>
-                <button id="signupTab" onclick="switchTab('signup')">SIGNUP</button>
+             <h2 id="auth-title">WELCOME</h2>
+             <p id="auth-subtittle">CREATE AN ACCOUNT</p>
+             <div class="toggle-bar">
+                <button id="loginTab class="active" onclick="SwitchTab('Login')">LOGIN</button>
+                <button id="signupTab" class="active" onclick="SwitchTab('signup')">SIGNUP</button>
             </div>
         </div>
         <form id="authForm">
             <div class="input-field">
-                 <label>Email Address</label>
+                 <label>Email Address<i class="fa-solid fa-envelope"></i></label>
                 <input type="email" id="email" required placeholder="blackhousemedia@gmail.co.ug">
             </div>
             <div class="input-field">
-                <label>Password</label>
+                <label>Password<i class="fa-solid fa-lock"></i></label>
                 <input type="password" id="password" required placeholder="eg.#08Bh!*40">
             </div>
-            <div id="signoutoptions" class="hidden">
-                <div class="input-field">
-                    <select id="userRole">
-                        <option value="entertainment.html">Entertainment</option>
-                        <option value="services.html">Services</option>
-                        <option value="software.html">Software</option>
-                        <option value="admin-partner">Partner</option>
-                    </select>
-                </div>
+            <div id="signoutoptions" class="input-field hidden">
+                <label>User Role<i class="fa-solid fa-user-tie"></i></label>
+                <select id="userRole" aria-label="Select UserRole">
+                    <option value="entertainment.html">ENTERTAINMENT</option>
+                    <option value="services.html">SERVICES</option>
+                    <option value="software.html">SOFTWARE</option>
+                    <option value="admin-partner">PARTNER</option>
+                </select>
             </div>
-        </form>
-        <div id="statusMessage"></div>
+            <!-------- social media authentication.=======================
+             <div class="auth-0ptions-lable">
+                <span>Signin with</span>
+             </div>
+             <div class="social-auth-container">
+                <button class="social-box google" onclick="handleGooglrLogin()"><i class="fa-brands fa-google"></i></button>
+                <span>Google</span>
+             </div>
+             -------->
+             <div id="statusMessage"></div>
         <button type="submit" id="proceedBtn" class="primary-btn">PROCEED</button>
+        </form>
+
     </div>
  </div>
- <script src=""></script>
+ <script src="script.js"></script>
     </body>
 </head>
 </html>

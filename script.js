@@ -1,3 +1,21 @@
+//firebase module imports//
+import { initializeApp} from "httos://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword}
+from "https:??www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import{getFirestore, doc, setDoc, getDoc} from "https://www.gstatic.com/firebase-auth.js";
+//firebase config
+const firebaseconfig = {apiKey:"AIzaSyD5sbIZ43Wtb1pkMFjhfc8KDCotE5W5vP8",
+authDomain: "blackhousemedia-57138.firebaseapp.com",
+ projectID: "blackhousemedia-57138",
+storageBucket: "balckhousemedia-57138.firebasestorage.app", 
+messagingSenderID:"109930483513",
+appId: "1:1099304835413:web:0a27d3419675cb7fe9f7dc",
+measurementId: "G-8P0NDCP3V9"
+};
+//INITIALIZE SERVICES
+const app = initializeApp(firebaseconfig);
+const auth = getAuth(app);
+const db =getFirestore(app);
 /* =====================================================
    PRELOADER (hide at 75%)
 ===================================================== */
@@ -144,4 +162,65 @@ if (preloader) {
       successMessage?.classList.remove('show');
     });
   }
+  ////
+  ////====================auth form=====///
+  const authTitle=document.getElementById('auth-title');
+  const authsubtittle = document.getElementById('auth-subtittle')
+  const loginTab = document.getElementById('loginTab')
+  const signupTab = document.getElementById('signupTab');
+  const proceedBtn = document.getElementById('proceedBtn');
+  const signoutoptions = document.getElementById('signoutoptions');
+  const authForm = document.getElementById('authForm');
+  //switching logic
+  function SwitchTab(mode){
+    if(mode === 'signup') {
+      document.getElementById('signoutoptions').style.display='block';
+      authTitle.innerText = "WELCOME";
+      authsubtittle.innerText = "CREATE AN ACCOUNT";
+      proceedBtn.innerText = "PROCEED SIGNUP";
+      signoutoptions.classList.remove('hidden');
+      signupTab.classList.add('active');
+      loginTab.classList.remove('active');
+    }
+    else{
+      document.getElementById('signoutoptions').style.display='none';
+      authTitle.innerText = "WELCOME BACK";
+      authsubtittle.innerText = "VERIFY YOUR IDENTITY";
+      proceedBtn.innerText = "PROCEED LOGIN";
+      signoutoptions.classList.add('hidden');
+      loginTab.classList.add('active');
+      signupTab.classList.remove('active');
+    }
+  }authForm .addEventListener('submit', async (e) =>{
+    e.preventDefault();//stop page reload
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const isSignup = !signoutoptions.classList.contains('hidden');
+    try{
+    if (isSignup){
+      const userRole = document.getElementById('userRole').value;
+      console.log("creating Account...", {email,userRole});
+      //backend logid (FireBase)
+      const userCredential = await creatUserWithEmailAndPassword(auth, email,password)
+      await setDoc(doc(db,"users, UserCredntial.user.uid"),{
+        email:email,
+        role:userRole
+      });
+      alert("ACCOUNT CREATED.");
+      window.location.href=userRole;
+    }
+  else{
+    const userCredential = await signinWithEmailAndPassword(auth,emailpassword);
+    const userDoc = await getDoc(doc(db,"users", userCredential.user.uid));
+    if(userDoc.exists()){
+       alert("VERIFIED. ACCESS GRANTED");
+       window.location.href = userDoc.data().role;
+    }
+  }
+}
+catch(error){
+  alert("VERIFICATION FAILED: CONTACT SUPPORT OR SINGUP")
+}
+
+  });
 
