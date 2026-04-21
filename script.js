@@ -2,13 +2,12 @@
 import { initializeApp} from "httos://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword}
 from "https:??www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import{getFirestore, doc, setDoc, getDoc} from "https://www.gstatic.com/firebase-auth.js";
+import{getfirestore, doc, setDoc, getDoc} from "https://www.gstatic.com/firebase-auth.js";
 //firebase config
 const firebaseconfig = {apiKey:"AIzaSyD5sbIZ43Wtb1pkMFjhfc8KDCotE5W5vP8",
-authDomain: "blackhousemedia-57138.firebaseapp.com",
+authDomain: "balckhousemedia-57138.firebaseapp.com",
  projectID: "blackhousemedia-57138",
-storageBucket: "balckhousemedia-57138.firebasestorage.app", 
-messagingSenderID:"109930483513",
+storageBucket: "balckhousemedia-57138.firebasestorage.app", messagingSenderID:"109930483513",
 appId: "1:1099304835413:web:0a27d3419675cb7fe9f7dc",
 measurementId: "G-8P0NDCP3V9"
 };
@@ -16,34 +15,7 @@ measurementId: "G-8P0NDCP3V9"
 const app = initializeApp(firebaseconfig);
 const auth = getAuth(app);
 const db =getFirestore(app);
-/* =====================================================
-   PRELOADER (hide at 75%)
-===================================================== */
-let fakeProgress = 0;
-const preloader = document.getElementById('preloader');
-
-if (preloader) {
-  const progressInterval = setInterval(() => {
-    fakeProgress += Math.random() * 15;
-
-    if (fakeProgress >= 75) {
-      clearInterval(progressInterval);
-
-      preloader.style.opacity = '0';
-      preloader.style.pointerEvents = 'none';
-
-      setTimeout(() => {
-        preloader.remove();
-      }, 500);
-    }
-  }, 200);
-
-  // Safety fallback
-  window.addEventListener('load', () => {
-    fakeProgress = 75;
-  });
- }
-
+/*
   /* =====================================================
      SMOOTH SCROLL
   ===================================================== */
