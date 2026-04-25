@@ -134,5 +134,15 @@ const db = getFirestore(app);
       successMessage?.classList.remove('show');
     });
   }
-  ////
+  // Rigister the service worker for PWA/Bubblewrap//
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+      .then(reg =>
+        console.log('Service Worker Registered!'))
+        .catch(err =>
+          console.error('Service Worker Registration Failed:', err));
+    });
+  }
+      
  
