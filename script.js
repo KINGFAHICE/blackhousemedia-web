@@ -162,3 +162,36 @@ const db = getFirestore(app);
         }
     });
 }
+let deferredPrompt;
+
+// 1. Listen for the browser saying "I'm ready to be an app"
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); // Stop the default mini-info bar
+    deferredPrompt = e;  // Save the event for later
+    
+    // Show your install button now that we know the app is installable
+    const installBtn = document.getElementById('install-btn');
+    if (installBtn) {
+        installBtn.style.display = 'block';
+    }
+});
+
+// 2. Handle the button click
+const installBtn = document.getElementById('install-btn');
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt(); // Show the install prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to install: ${outcome}`);
+            deferredPrompt = null; // Can only be used once
+            installBtn.style.display = 'none';
+        }
+    });
+}
+
+// 3. Optional: Hide button if already installed
+window.addEventListener('appinstalled', () => {
+    console.log('BHM App was installed!');
+    deferredPrompt = null;
+});
