@@ -216,7 +216,7 @@ if ('serviceWorker' in navigator) {
 
             // IMPORTANT:
             // Change version every deployment
-            const registration = await navigator.serviceWorker.register('/sw.js?v=4');
+            const registration = await navigator.serviceWorker.register('/sw.js?v=5');
 
             console.log('Service Worker Registered');
 

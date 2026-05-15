@@ -350,7 +350,7 @@ body.light-mode{
         display: none; /* Hide nav by default on mobile */
         flex-direction: column;
         position: fixed;
-        top: 8.2rem;
+        top: 4.7rem;
         right: -100%; /* Start off-screen */
         width: 250px;
         height: auto;
