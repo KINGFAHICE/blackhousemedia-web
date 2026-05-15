@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v2_SITE_CACHE';
+const CACHE_NAME = 'v3_SITE_CACHE';
 
 const RESOURCES_TO_CACHE = [
     '/',
