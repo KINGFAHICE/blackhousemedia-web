@@ -55,34 +55,77 @@ self.addEventListener('message', (event) => {
     }
 
 });
-
 // FETCH
 self.addEventListener('fetch', (event) => {
 
     // Skip non-GET requests
     if (event.request.method !== 'GET') return;
 
+    const acceptHeader = event.request.headers.get('accept');
+
+    // ==========================================
+    // HTML → NETWORK FIRST
+    // ==========================================
+
+    if (acceptHeader && acceptHeader.includes('text/html')) {
+
+        event.respondWith(
+
+            fetch(event.request)
+
+                .then((networkResponse) => {
+
+                    return caches.open(CACHE_NAME).then((cache) => {
+
+                        cache.put(event.request, networkResponse.clone());
+
+                        return networkResponse;
+
+                    });
+
+                })
+
+                .catch(() => {
+
+                    return caches.match(event.request);
+
+                })
+
+        );
+
+        return;
+    }
+
+    // ==========================================
+    // STATIC FILES → CACHE FIRST
+    // ==========================================
+
     event.respondWith(
 
-        fetch(event.request)
+        caches.match(event.request)
 
-            .then((networkResponse) => {
+            .then((cachedResponse) => {
 
-                // Update cache with latest version
-                return caches.open(CACHE_NAME).then((cache) => {
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
 
-                    cache.put(event.request, networkResponse.clone());
+                return fetch(event.request)
 
-                    return networkResponse;
-                });
+                    .then((networkResponse) => {
+
+                        return caches.open(CACHE_NAME).then((cache) => {
+
+                            cache.put(event.request, networkResponse.clone());
+
+                            return networkResponse;
+
+                        });
+
+                    });
 
             })
 
-            .catch(() => {
-
-                // Offline fallback
-                return caches.match(event.request);
-
-            })
     );
+
 });
