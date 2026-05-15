@@ -37,10 +37,13 @@
                  <label>Email Address<i class="fa-solid fa-envelope"></i></label>
                 <input type="email" id="email" required placeholder="blackhousemedia@gmail.co.ug">
             </div>
-            <div class="input-field">
-                <label>Password<i class="fa-solid fa-lock"></i></label>
-                <input type="password" id="password" required placeholder="eg.#08Bh!*40">
-            </div>
+                        <div class="input-field" style="position:relative;">
+                                <label>Password<i class="fa-solid fa-lock"></i></label>
+                                <input type="password" id="password" required placeholder="eg.#08Bh!*40">
+                                <span id="togglePassword" style="position:absolute; right:1.2rem; top:3.2rem; cursor:pointer; color:#888; font-size:1.7rem;">
+                                    <i class="fa-solid fa-eye"></i>
+                                </span>
+                        </div>
             <div id="signoutoptions" class="input-field hidden">
                 <label>User Role<i class="fa-solid fa-user-tie"></i></label>
                 <select id="userRole" aria-label="Select UserRole">
@@ -60,12 +63,29 @@
              </div>
              -------->
              <div id="statusMessage"></div>
-        <button type="submit" id="proceedBtn" class="primary-btn">PROCEED</button>
+        <button type="submit" id="proceedBtn" class="primary-btn">PROCEED SIGNUP</button>
         </form>
 
     </div>
  </div>
  <script  src="auth.js"></script>
+ <script>
+     // Password visibility toggle
+     const passwordInput = document.getElementById('password');
+     const togglePassword = document.getElementById('togglePassword');
+     let pwVisible = false;
+     togglePassword.addEventListener('click', function() {
+         pwVisible = !pwVisible;
+         passwordInput.type = pwVisible ? 'text' : 'password';
+         togglePassword.innerHTML = pwVisible ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
+     });
+     // Update button text on tab switch
+     const loginTab = document.getElementById('loginTab');
+     const signupTab = document.getElementById('signupTab');
+     const proceedBtn = document.getElementById('proceedBtn');
+     loginTab.addEventListener('click', () => { proceedBtn.textContent = 'PROCEED LOGIN'; });
+     signupTab.addEventListener('click', () => { proceedBtn.textContent = 'PROCEED SIGNUP'; });
+ </script>
  <script src="preloader.js"></script>
  <script type="module" src="script.js"></script>
     </body>

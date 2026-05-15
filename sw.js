@@ -1,4 +1,5 @@
-const CACHE_NAME = 'v1_SITE_CACHE'; // Increment this (e.g., 'v2_SITE_CACHE') to trigger updates
+const CACHE_NAME = 'v2_SITE_CACHE';
+
 const RESOURCES_TO_CACHE = [
     '/',
     '/index.html',
@@ -7,8 +8,12 @@ const RESOURCES_TO_CACHE = [
     '/resoursesIcons/icon-512x512.png',
 ];
 
-// INSTALL: Pre-cache assets
+// INSTALL
 self.addEventListener('install', (event) => {
+
+    // Activate immediately
+    self.skipWaiting();
+
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll(RESOURCES_TO_CACHE);
@@ -16,34 +21,68 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// ACTIVATE: Clean up old versions of the cache
+// ACTIVATE
 self.addEventListener('activate', (event) => {
+
     event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cache) => {
-                    if (cache !== CACHE_NAME) {
-                        console.log('Service Worker: Clearing Old Cache');
-                        return caches.delete(cache);
-                    }
-                })
-            );
-        })
+
+        Promise.all([
+
+            // Delete old caches
+            caches.keys().then((cacheNames) => {
+                return Promise.all(
+                    cacheNames.map((cache) => {
+                        if (cache !== CACHE_NAME) {
+                            console.log('Deleting old cache:', cache);
+                            return caches.delete(cache);
+                        }
+                    })
+                );
+            }),
+
+            // Take control immediately
+            clients.claim()
+
+        ])
     );
 });
 
-// MESSAGE: Listen for the "skip waiting" command from the frontend
+// MESSAGE
 self.addEventListener('message', (event) => {
+
     if (event.data === 'SKIP_WAITING') {
         self.skipWaiting();
     }
+
 });
 
-// FETCH: Serve from cache, fallback to network
+// FETCH
 self.addEventListener('fetch', (event) => {
+
+    // Skip non-GET requests
+    if (event.request.method !== 'GET') return;
+
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
-        })
+
+        fetch(event.request)
+
+            .then((networkResponse) => {
+
+                // Update cache with latest version
+                return caches.open(CACHE_NAME).then((cache) => {
+
+                    cache.put(event.request, networkResponse.clone());
+
+                    return networkResponse;
+                });
+
+            })
+
+            .catch(() => {
+
+                // Offline fallback
+                return caches.match(event.request);
+
+            })
     );
 });

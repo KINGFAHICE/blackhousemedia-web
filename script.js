@@ -34,30 +34,91 @@ const db = getFirestore(app);
   /* =====================================================
      MOBILE MENU TOGGLE
   =====================================================*/
-  
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const navLinks = document.querySelector('.nav-links');
+  const menuOverlay = document.querySelector('.menu-Overlay');
+
+  function closeMobileMenu() {
+    navLinks.classList.remove('active');
+    mobileMenuBtn.classList.remove('active');
+    menuOverlay.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  if (mobileMenuBtn && navLinks && menuOverlay) {
+    mobileMenuBtn.addEventListener('click', () => {
+      const isActive = navLinks.classList.toggle('active');
+      mobileMenuBtn.classList.toggle('active');
+      menuOverlay.classList.toggle('show');
+      document.body.style.overflow = isActive ? 'hidden' : '';
+    });
+
+    menuOverlay.addEventListener('click', closeMobileMenu);
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+  }
+
   /* =====================================================
-     NAVBAR HIDE / SHOW ON SCROLL
+     DARK/LIGHT MODE TOGGLE
+  =====================================================*/
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const lightModeToggle = document.getElementById('lightModeToggle');
+
+  function setTheme(mode) {
+    if (mode === 'dark') {
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+      darkModeToggle.classList.add('active');
+      lightModeToggle.classList.remove('active');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.add('light-mode');
+      document.body.classList.remove('dark-mode');
+      lightModeToggle.classList.add('active');
+      darkModeToggle.classList.remove('active');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Initial theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') setTheme('dark');
+  else setTheme('light');
+
+  darkModeToggle.addEventListener('click', () => setTheme('dark'));
+  lightModeToggle.addEventListener('click', () => setTheme('light'));
+
+  /* =====================================================
+     NAVBAR HIDE / SHOW ON SCROLL (desktop only)
   =====================================================*/
   const header = document.querySelector('.navbar');
   let lastScrollY = window.scrollY;
 
-  if (navbar) {
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
 
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (!isMobile()) {
       if (currentScroll > 100) {
         if (currentScroll > lastScrollY) {
-          navbar.classList.add('hide'); // scroll down
+          header.classList.add('hide'); // scroll down
         } else {
-          navbar.classList.remove('hide'); // scroll up
+          header.classList.remove('hide'); // scroll up
         }
       } else {
         header.classList.remove('hide');
       }
+    } else {
+      // Always show navbar on mobile
+      header.classList.remove('hide');
+    }
+    lastScrollY = currentScroll;
+  });
 
-      lastScrollY = currentScroll;
-    });
-  }
 
 
   /* =====================================================
@@ -136,62 +197,171 @@ const db = getFirestore(app);
       successMessage?.classList.remove('show');
     });
   }
-  // Rigister the service worker for PWA/Bubblewrap//
-  if ('serviceWorker' in navigator) {
-    let newWorker;
+  // ===============================
+// PWA SERVICE WORKER FRONTEND
+// ===============================
 
-    // 1. Register the worker
-    navigator.serviceWorker.register('/sw.js').then(reg => {
-        reg.addEventListener('updatefound', () => {
-            newWorker = reg.installing;
-            newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                    // New content is available, force the "skipWaiting"
-                    newWorker.postMessage('SKIP_WAITING');
-                }
-            });
-        });
-    });
-
-    // 2. Reload the page once the new worker takes control
-    let refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) {
-            window.location.reload();
-            refreshing = true;
-        }
-    });
-}
 let deferredPrompt;
+let refreshing = false;
 
-// 1. Listen for the browser saying "I'm ready to be an app"
+// ===============================
+// REGISTER SERVICE WORKER
+// ===============================
+
+if ('serviceWorker' in navigator) {
+
+    window.addEventListener('load', async () => {
+
+        try {
+
+            // IMPORTANT:
+            // Change version every deployment
+            const registration = await navigator.serviceWorker.register('/sw.js?v=5');
+
+            console.log('Service Worker Registered');
+
+            // Force update check immediately
+            registration.update();
+
+            // ===============================
+            // UPDATE DETECTION
+            // ===============================
+
+            registration.addEventListener('updatefound', () => {
+
+                const newWorker = registration.installing;
+
+                console.log('New Service Worker Found');
+
+                newWorker.addEventListener('statechange', () => {
+
+                    console.log('SW State:', newWorker.state);
+
+                    // New update available
+                    if (
+                        newWorker.state === 'installed' &&
+                        navigator.serviceWorker.controller
+                    ) {
+
+                        console.log('New version available');
+
+                        // Activate immediately
+                        newWorker.postMessage('SKIP_WAITING');
+
+                    }
+
+                });
+
+            });
+
+            // ===============================
+            // AUTO REFRESH AFTER UPDATE
+            // ===============================
+
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+
+                if (refreshing) return;
+
+                refreshing = true;
+
+                console.log('New Service Worker Activated');
+
+                // Reload app automatically
+                window.location.reload();
+
+            });
+
+        } catch (error) {
+
+            console.error('Service Worker Registration Failed:', error);
+
+        }
+
+    });
+
+}
+
+// ===============================
+// INSTALL BUTTON LOGIC
+// ===============================
+
+// Browser says app can be installed
 window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault(); // Stop the default mini-info bar
-    deferredPrompt = e;  // Save the event for later
-    
-    // Show your install button now that we know the app is installable
+
+    console.log('Install Prompt Ready');
+
+    // Prevent mini-infobar
+    e.preventDefault();
+
+    // Save prompt event
+    deferredPrompt = e;
+
+    // Show install button
     const installBtn = document.getElementById('install-btn');
+
     if (installBtn) {
         installBtn.style.display = 'block';
     }
+
 });
 
-// 2. Handle the button click
+// ===============================
+// INSTALL BUTTON CLICK
+// ===============================
+
 const installBtn = document.getElementById('install-btn');
+
 if (installBtn) {
+
     installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt(); // Show the install prompt
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to install: ${outcome}`);
-            deferredPrompt = null; // Can only be used once
-            installBtn.style.display = 'none';
-        }
+
+        if (!deferredPrompt) return;
+
+        // Show install prompt
+        deferredPrompt.prompt();
+
+        // Wait for user response
+        const { outcome } = await deferredPrompt.userChoice;
+
+        console.log('Install Result:', outcome);
+
+        // Clear prompt
+        deferredPrompt = null;
+
+        // Hide button
+        installBtn.style.display = 'none';
+
     });
+
 }
 
-// 3. Optional: Hide button if already installed
+// ===============================
+// APP INSTALLED
+// ===============================
+
 window.addEventListener('appinstalled', () => {
-    console.log('BHM App was installed!');
+
+    console.log('PWA Installed Successfully');
+
     deferredPrompt = null;
+
+    const installBtn = document.getElementById('install-btn');
+
+    if (installBtn) {
+        installBtn.style.display = 'none';
+    }
+
+});
+
+// ===============================
+// OPTIONAL:
+// CHECK INTERNET STATUS
+// ===============================
+
+window.addEventListener('online', () => {
+    console.log('You are online');
+});
+
+window.addEventListener('offline', () => {
+    console.log('You are offline');
 });

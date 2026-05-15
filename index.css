@@ -278,15 +278,15 @@ body.light-mode{
     scale: 1.05;
 }
 /* Mobile Menu Button */
-    .mobile-menu-btn {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
+        .mobile-menu-btn {
+            display: none; /* Hide by default (desktop) */
+            flex-direction: column;
+            gap: 0.6rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
     
     .mobile-menu-btn span {
       display: block;
@@ -340,71 +340,47 @@ body.light-mode{
     }
     
     
-    @media (min-width: 768px) {
-      .mobile-menu-btn {
-        display: flex;
-      } 
-    }
-       
-    @media (max-width:768px) {
-        /* Updated Mobile Navigation */
 @media (max-width: 768px) {
-    .nav-links, .header-action {
-        /* Remove display: none; */
-        display: flex; /* Keep it as flex so the list looks right */
+    .mobile-menu-btn {
+        display: flex; /* Show only on mobile */
+    }
+    .nav-links {
+        display: none; /* Hide nav by default on mobile */
         flex-direction: column;
         position: fixed;
         top: 8.2rem;
         right: -100%; /* Start off-screen */
-        width: 250px; /* Or whatever width you prefer */
+        width: 250px;
         height: auto;
         background: #000000;
         padding: 2rem;
         z-index: 1000;
-        transition: 0.4s ease-in-out; /* Smooth slide */
+        transition: right 0.4s ease-in-out, display 0s linear 0.4s;
+        margin-top: 0;
     }
-
     .nav-links.active {
+        display: flex;
         right: 0; /* Slide into view */
+        transition: right 0.4s ease-in-out;
     }
     .menu-Overlay.show {
         opacity: 1;
         visibility: visible;
     }
-}
-        .nav-links{
-            display: none;
-            position: fixed;
-            top: 0;
-            width: auto;
-            height: auto;
-            background: #000000;
-            padding: 2rem 2rem 2rem;
-            z-index: 1000;
-            margin-top: 8.2rem;
-        }
-         .nav-links.active{
-            display: flex;
-            right: 0;
-        }
-       
-        #CW{
-            display: none;
-        }
-        .nav-links.nav-links.active ul{
-            flex-direction: column;
-            gap: 3rem;
-            
-        }
-        .logo-icon{
-    width: 4.5rem;
-        }
-        .logo-text div:first-child{
-    margin-left: 2rem;
-        }
-
+    #CW {
+        display: none;
     }
-
+    .nav-links.active ul {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    .logo-icon {
+        width: 4.5rem;
+    }
+    .logo-text div:first-child {
+        margin-left: 2rem;
+    }
+}
 /*----------------------end of nav bar-------------------------------------------------------
 --------------------------------------------------hamburger menu------------------*/
  

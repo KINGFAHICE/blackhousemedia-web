@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
      MOBILE MENU TOGGLE
   ===================================================== */
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-  const nav = document.querySelector('.nav');
+  const nav = document.querySelector('.nav-links');
 
   if (mobileMenuBtn && nav) {
     mobileMenuBtn.addEventListener('click', e => {
